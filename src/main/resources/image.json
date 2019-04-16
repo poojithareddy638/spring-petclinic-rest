@@ -35,9 +35,8 @@
       "sudo unzip apache-tomcat-8.5.40.zip",
       "sudo apt install git",
       "mkdir -p pet-app",
-      "sudo git clone https://github.com/poojithareddy638/spring-petclinic-rest.git /home/ubuntu/petapp",
-      
-      "sudo ./mvnw clean install"
+      "sudo git clone https://github.com/poojithareddy638/spring-petclinic-rest.git /home/ubuntu/petapp"
+
      
      ]
 }]
