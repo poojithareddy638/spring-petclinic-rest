@@ -1,0 +1,44 @@
+ {
+  "variables": {
+
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "account.json",
+      "project_id": "atlas-201473",
+      "source_image": "ubuntu-1604-xenial-v20190411",
+      "disk_size": "50",
+      "machine_type": "n1-standard-1",
+	  "zone": "us-central1-a",
+      "ssh_username": "ubuntu"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y software-properties-common",
+      "sudo cd /etc/apt/sources.list.",
+      "sudo rm webupd8team-java-bionic.list",
+      "sudo apt-get --allow-releaseinfo-change update",
+      "sudo add-apt-repository -y ppa:webupd8team/java",
+      "sudo apt-get update",
+      "sudo echo deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main| tee /etc/apt/sources.list.d/webupd8team-java.list",
+      "sudo echo deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main | tee -a /etc/apt/sources.list.d/webupd8team-java.list",
+      "sudo apt-get install dirmngr",
+      "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886",
+      "sudo apt-get update",
+      "sudo echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections",
+      "sudo apt-get install oracle-java8-installer -y --allow-unauthenticated",
+      "sudo wget http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.zip",
+      "sudo apt-get install unzip",
+      "sudo unzip apache-tomcat-8.5.40.zip",
+      "sudo apt install git",
+      "mkdir -p pet-app",
+      "sudo git clone https://github.com/poojithareddy638/spring-petclinic-rest.git /home/ubuntu/petapp"
+
+
+     ]
+}]
+}

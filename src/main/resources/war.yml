@@ -1,0 +1,6 @@
+- hosts: all
+  vars:
+    springboot_application_name: endeavour-petclinic
+    springboot_src: /home/ubuntu/spring-petclinic-rest/target/spring-petclinic-1.5.2.war
+  roles:
+    - role: ansible-springboot
