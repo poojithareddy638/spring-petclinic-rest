@@ -1,0 +1,50 @@
+{
+ "variables": {
+
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "ap-south-1",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-test {{timestamp}}"
+    },
+    {
+    "name": "ubuntu-docker",
+    "type": "docker",
+    "image": "gruntwork/ubuntu-test:16.04",
+    "commit": true
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y software-properties-common",
+      "sudo add-apt-repository -y ppa:webupd8team/java",
+      "sudo apt-get update",
+      "echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections",
+      "echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections",
+      "sudo apt-get install -y oracle-java8-installer",
+      "sudo apt-get install oracle-java8-set-default",
+      "sudo wget http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.zip",
+      "sudo apt-get install unzip",
+      "sudo unzip apache-tomcat-8.5.40.zip",
+      "sudo apt install git",
+      "mkdir -p pet-app",
+      "sudo git clone https://github.com/poojithareddy638/spring-petclinic-rest.git /home/ubuntu/petapp"
+
+
+     ]
+ }]
+}
+
